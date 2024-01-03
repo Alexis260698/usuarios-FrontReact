@@ -1,18 +1,28 @@
+import { useReducer } from "react";
 import { UserForm } from "./UserForm";
 import { UsersList } from "./UserList";
+import { usersReducer } from "../reducers/usersReducer";
+
+
+const initialUsers = [
+    {
+        id: 1,
+        username: 'pepe',
+        password: '12345',
+        email: 'pepe@correo.com'
+    },
+];
 
 export const UsersApp = () => {
 
+    const[users, dispatch] = useReducer(usersReducer, initialUsers);
 
-    const initialUsers = [
-        {
-            id: 1,
-            username: 'pepe',
-            password: '12345',
-            email: 'pepe@correo.com'
-        },
-    ];
-
+    const handlerAddUser = (user) => {
+        dispatch({
+            type: 'addUser',
+            payload: user,
+        })
+    }
 
     return (
         <div className="container my-4">
@@ -21,10 +31,12 @@ export const UsersApp = () => {
             <div className="row">
 
                 <div className="col">
-                    <UserForm></UserForm>
+                    <UserForm handlerAddUser= { handlerAddUser } ></UserForm>
                 </div>
                 <div className="col">
-                    <UsersList users={initialUsers}></UsersList>
+                    <UsersList 
+                    users={users}
+                    ></UsersList>
                 </div>
             </div>
         </div>
