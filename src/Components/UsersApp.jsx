@@ -13,9 +13,15 @@ const initialUsers = [
     },
 ];
 
+const initialUserForm = {
+    username: '',
+    password: '',
+    email: '',
+}
+
 export const UsersApp = () => {
 
-    const[users, dispatch] = useReducer(usersReducer, initialUsers);
+    const [users, dispatch] = useReducer(usersReducer, initialUsers);
 
     const handlerAddUser = (user) => {
         dispatch({
@@ -38,13 +44,20 @@ export const UsersApp = () => {
             <div className="row">
 
                 <div className="col">
-                    <UserForm handlerAddUser= { handlerAddUser } ></UserForm>
+                    <UserForm
+                        handlerAddUser={handlerAddUser}
+                        initialUserForm={initialUserForm}
+                    ></UserForm>
                 </div>
                 <div className="col">
-                    <UsersList 
-                    users={users}
-                    handlerRemoveUser = { handlerRemoveUser }
-                    ></UsersList>
+                    {users.length === 0
+                        ? <div className="alert alert-warning">No hay usuarios</div>
+                        : <UsersList
+                            users={users}
+                            handlerRemoveUser={handlerRemoveUser}
+                        ></UsersList>
+                    }
+
                 </div>
             </div>
         </div>
