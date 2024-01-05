@@ -1,55 +1,20 @@
-import { useReducer, useState } from "react";
 import { UserForm } from "./UserForm";
 import { UsersList } from "./UserList";
-import { usersReducer } from "../reducers/usersReducer";
+import { useUser } from "../hooks/useUsers";
 
 
-const initialUsers = [
-    {
-        id: 1,
-        username: 'pepe',
-        password: '12345',
-        email: 'pepe@correo.com'
-    },
-];
 
-const initialUserForm = {
-    id: 0,
-    username: '',
-    password: '',
-    email: '',
-}
 
 export const UsersApp = () => {
 
-    const [users, dispatch] = useReducer(usersReducer, initialUsers);
-    const [userSelected, setUserSelected] = useState(initialUserForm);
-
-    const handlerAddUser = (user) => {
-
-        let type;
-
-        if(user.id === 0){
-            type ="addUser";
-        }else{
-            type ="updateUser";
-        }
-
-        dispatch({
-            type: type,
-            payload: user,
-        })
-    }
-
-    const handlerRemoveUser = (id) => {
-        dispatch({
-            type: 'removeUser',
-            payload: id,
-        })
-    }
-    const handlerUserSelectedForm = (user) => {
-        setUserSelected({...user});
-    }
+    const {
+        users,
+        userSelected,
+        initialUserForm,
+        handlerAddUser,
+        handlerRemoveUser,
+        handlerUserSelectedForm,
+    } = useUser();
 
     return (
         <div className="container my-4">
@@ -60,8 +25,8 @@ export const UsersApp = () => {
                 <div className="col">
                     <UserForm
                         handlerAddUser={handlerAddUser}
-                        initialUserForm={ initialUserForm }
-                        userSelected ={ userSelected }
+                        initialUserForm={initialUserForm}
+                        userSelected={userSelected}
                     ></UserForm>
                 </div>
                 <div className="col">
@@ -69,7 +34,7 @@ export const UsersApp = () => {
                         ? <div className="alert alert-warning">No hay usuarios</div>
                         : <UsersList
                             handlerUserSelectedForm={handlerUserSelectedForm}
-                            users={ users }
+                            users={users}
                             handlerRemoveUser={handlerRemoveUser}
                         ></UsersList>
                     }
