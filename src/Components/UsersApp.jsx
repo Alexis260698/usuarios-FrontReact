@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { UserForm } from "./UserForm";
 import { UsersList } from "./UserList";
 import { usersReducer } from "../reducers/usersReducer";
@@ -14,6 +14,7 @@ const initialUsers = [
 ];
 
 const initialUserForm = {
+    id: 0,
     username: '',
     password: '',
     email: '',
@@ -22,10 +23,20 @@ const initialUserForm = {
 export const UsersApp = () => {
 
     const [users, dispatch] = useReducer(usersReducer, initialUsers);
+    const [userSelected, setUserSelected] = useState(initialUserForm);
 
     const handlerAddUser = (user) => {
+
+        let type;
+
+        if(user.id === 0){
+            type ="addUser";
+        }else{
+            type ="updateUser";
+        }
+
         dispatch({
-            type: 'addUser',
+            type: type,
             payload: user,
         })
     }
@@ -35,6 +46,9 @@ export const UsersApp = () => {
             type: 'removeUser',
             payload: id,
         })
+    }
+    const handlerUserSelectedForm = (user) => {
+        setUserSelected({...user});
     }
 
     return (
@@ -46,14 +60,16 @@ export const UsersApp = () => {
                 <div className="col">
                     <UserForm
                         handlerAddUser={handlerAddUser}
-                        initialUserForm={initialUserForm}
+                        initialUserForm={ initialUserForm }
+                        userSelected ={ userSelected }
                     ></UserForm>
                 </div>
                 <div className="col">
                     {users.length === 0
                         ? <div className="alert alert-warning">No hay usuarios</div>
                         : <UsersList
-                            users={users}
+                            handlerUserSelectedForm={handlerUserSelectedForm}
+                            users={ users }
                             handlerRemoveUser={handlerRemoveUser}
                         ></UsersList>
                     }
