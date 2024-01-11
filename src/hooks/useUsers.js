@@ -35,7 +35,7 @@ export const useUser = () => {
         Swal.fire({
             title: (user.id === 0) ? 
              "Usuario Creado!" :
-              "Usuario Creado!",
+              "Usuario Actualizado!",
             text: (user.id === 0) ? 
             "El usuario ha sido creado correctamente!" :
              "El usuario ha sido actualizado correctamente!",
