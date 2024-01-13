@@ -30,8 +30,15 @@ export const UserForm = ({ handlerCloseForm, userSelected, handlerAddUser, initi
                 title: "Error de validacion",
                 text: "Debes completar el formulario!"
             });
+            return;
+        }
 
-
+        if(!email.includes('@')){
+            Swal.fire({
+                icon: "error",
+                title: "Error de validacion email",
+                text: "El email debe ser valido"
+            });
             return;
         }
 
@@ -74,10 +81,11 @@ export const UserForm = ({ handlerCloseForm, userSelected, handlerAddUser, initi
                 className="btn btn-primary"
                 type='submit'
             >{id > 0 ? 'Editar' : 'Crear'}</button>
-            <button className="btn btn-primary mx-2"
+
+            {!handlerCloseForm ||<button className="btn btn-primary mx-2"
                 type="button"
                 onClick={() => onCloseForm()}
-            >Cerrar</button>
+            >Cerrar</button>}
         </form>
 
     )

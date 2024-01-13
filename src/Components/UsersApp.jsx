@@ -2,12 +2,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "../auth/hooks/useAuth";
 import { LoginPage } from "../auth/pages/LoginPage";
-import { UsersPage } from "../pages/UsersPage";
-import { Navbar } from "./layout/Navbar";
 import { UserRoutes } from "../routes/UserRoutes";
-
-
-
 
 export const UsersApp = () => {
 

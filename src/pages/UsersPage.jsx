@@ -6,19 +6,18 @@ import { UselModalForm } from "../Components/UserModalForm";
 
 
 
-export const UsersPage = () => {
+export const UsersPage = ({
+    users,
+    userSelected,
+    initialUserForm,
+    handlerAddUser,
+    visibleForm,
+    handlerRemoveUser,
+    handlerUserSelectedForm,
+    handlerOpenForm,
+    handlerCloseForm,
+}) => {
 
-    const {
-        users,
-        userSelected,
-        initialUserForm,
-        handlerAddUser,
-        visibleForm,
-        handlerRemoveUser,
-        handlerUserSelectedForm,
-        handlerOpenForm,
-        handlerCloseForm,
-    } = useUser();
 
     return (
         <>
