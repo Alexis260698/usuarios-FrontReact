@@ -5,12 +5,12 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { useUser } from "../hooks/useUsers";
 import { UserProvider } from "../context/userProvider";
 
-export const UserRoutes = ({ login, handlerLogOut }) => {
+export const UserRoutes = () => {
     
 
     return (<>
         <UserProvider >
-        <Navbar login={login} handlerLogOut={handlerLogOut} />
+        <Navbar />
         <Routes>
             <Route path="users" element={<UsersPage/>} />
             <Route path="users/register" element={<RegisterPage/>} />
